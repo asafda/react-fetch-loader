@@ -6,7 +6,9 @@
     "build": "npm run clean && npm run build-js",
     "build-js": "babel src --out-dir dist",
     "clean": "rimraf dist",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "repository": "git@github.com:asafda/react-fetch-loader.git",
   "author": "Asaf David <asaf.d@fiverr.com>",
@@ -19,6 +21,11 @@
     "rimraf": "^2.6.1"
   },
   "peerDependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "devDependencies": {
+    "@kadira/storybook": "^2.21.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }
