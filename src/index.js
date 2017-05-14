@@ -1,4 +1,5 @@
 import React from 'react';
+
 const phases = {
     fetching: 1,
     success: 2,
