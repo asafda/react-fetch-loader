@@ -1,5 +1,3 @@
-import React from 'react';
-
 const phases = {
     fetching: 1,
     success: 2,
@@ -15,9 +13,8 @@ class FetchLoader extends React.Component {
         }
 
         this.style = {
-            width: props.width || '100%',
             height: props.height || '100%',
-            textAlign: 'center'
+            width: '100%'
         }
     }
 
@@ -39,7 +36,11 @@ class FetchLoader extends React.Component {
         } else {
             return (
                 <div style={this.style}>
-                    {phase === phases.fetching && <div>Loading...</div>}
+                    {phase === phases.fetching && (
+                        !!this.props.loader
+                        ? <this.props.loader {...this.props.spinnerProps}/>
+                        : <div>Loading...</div>
+                    )}
                     {phase === phases.error && <div>{this.props.errorText}</div>}
                 </div>
             )

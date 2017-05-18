@@ -1,5 +1,3 @@
-import React from 'react';
-
 const DataDisplayer = ({ fetchedData }) => (
     <div>
         <h3>Fetched data for user asafda:</h3>
