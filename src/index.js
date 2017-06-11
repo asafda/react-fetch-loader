@@ -1,7 +1,7 @@
 const phases = {
-    fetching: 1,
-    success: 2,
-    error: 4
+    fetching: 'Fetching',
+    success: 'Success',
+    error: 'Error'
 }
 
 class FetchLoader extends React.Component {
@@ -28,23 +28,33 @@ class FetchLoader extends React.Component {
             .catch(() => this.setState({ phase: phases.error }))
     }
 
+    renderSuccess() {
+        return React.cloneElement(this.props.children, {fetchedData: this.data});
+    }
+
+    renderFetching() {
+        return (
+            <div style={this.style}>
+                {!!this.props.loader
+                    ? <this.props.loader {...this.props.spinnerProps}/>
+                    : <div>Loading...</div>
+                }
+            </div>
+        );
+    }
+
+    renderError() {
+        return (
+            <div style={this.style}>
+                <div>{this.props.errorText}</div>
+            </div>
+        );
+    }
+
     render() {
         const { phase } = this.state;
 
-        if (phase === phases.success) {
-            return React.cloneElement(this.props.children, {fetchedData: this.data});
-        } else {
-            return (
-                <div style={this.style}>
-                    {phase === phases.fetching && (
-                        !!this.props.loader
-                        ? <this.props.loader {...this.props.spinnerProps}/>
-                        : <div>Loading...</div>
-                    )}
-                    {phase === phases.error && <div>{this.props.errorText}</div>}
-                </div>
-            )
-        }
+        return this[`render${phase}`]();
     }
 }
 
